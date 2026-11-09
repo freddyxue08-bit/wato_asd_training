@@ -3,7 +3,21 @@
 
 #include "costmap_node.hpp"
 
-CostmapNode::CostmapNode() : Node("costmap"), costmap_(robot::CostmapCore(this->get_logger())) {}
+CostmapNode::CostmapNode() : Node("costmap"), costmap_(robot::CostmapCore(this->get_logger())) {
+  // Create the publisher: String messages on /test_topic, queue of 10
+  string_pub_ = this->create_publisher<std_msgs::msg::String>("/test_topic", 10);
+
+  // Create the timer: every 500 ms, call publishMessage()   <-- here's your 500 ms!
+  timer_ = this->create_wall_timer(std::chrono::milliseconds(500),
+                                   std::bind(&CostmapNode::publishMessage, this));
+}
+
+void CostmapNode::publishMessage() {
+  auto message = std_msgs::msg::String();
+  message.data = "Hello, ROS 2!";
+  RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
+  string_pub_->publish(message);
+}
 
 int main(int argc, char ** argv)
 {
