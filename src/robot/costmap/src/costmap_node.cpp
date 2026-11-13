@@ -16,7 +16,7 @@ void CostmapNode::laserCallback(const sensor_msgs::msg::LaserScan::SharedPtr sca
   const int height = 300;          // cells up
   const double origin_x = -15.0;   // bottom-left corner, meters
   const double origin_y = -15.0;
-  const double inflation_radius = 1.0;
+  const double inflation_radius = 1.5;
 
   // ---- 1. Start a blank grid ----
   nav_msgs::msg::OccupancyGrid grid;

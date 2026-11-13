@@ -96,7 +96,7 @@ void PlannerNode::planPath() {
   const int start = sr*W+sc;   // BLANK 5: theater seats, with sr, sc, W
   const int goal = gr*W+gc;    // BLANK 6: theater seats, with gr, gc, W
 
-  const int BLOCKED = 60;   // cost at or above this = can't drive here
+  const int BLOCKED = 40;   // cost at or above this = can't drive here
   if (map_.data[goal] >= BLOCKED) {
     RCLCPP_WARN(this->get_logger(), "Goal is inside or too close to a wall");
     return;
