@@ -54,7 +54,9 @@ void MapMemoryNode::updateMap() {
     double dy = robot_y_ - last_y_;
     double moved = sqrt(dx*dx+dy*dy);                        // BLANK 1: Pythagoras (std::sqrt)
 
-    if (first_update_ || moved >= 1.5) {
+    // Paste every tick (1 s). The wiki suggests only after moving 1.5 m, but that deadlocks:
+    // an obstacle seen while the robot is stuck against it would never reach the map.
+    if (first_update_ || moved >= 0.0) {
 
       // ---- short nicknames for the costmap's settings ----
       const auto& cm = latest_costmap_;
